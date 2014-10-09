@@ -1,10 +1,9 @@
 # Catty and Jazzy communicate to Cordy through Listy cat.
 
-command=$1
 name=$2
 port=$(cat $file"/nc_port_number")
 
-if [ $command == "S" ]
+if [ $1 == "S" ]
 then
 	echo "SEARCHING"
 	res=$(netcat -v -w 0 localhost $port)
@@ -13,7 +12,7 @@ then
 		echo "success!"
 	fi
 
-elif [ $command == 'A' ]
+elif [ $1 == 'A' ]
 then
 	
 	
