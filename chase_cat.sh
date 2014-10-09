@@ -2,7 +2,8 @@
 
 port=$(cat "nc_port_number")
 curhost=$(hostname)
-listy=$(cat "listy_location")
+listyip=$(sed -n "1p" < "listy_location")
+listyport=$(sed -n "2p" < "listy_location")
 
 trap "echo 'G $curhost $2' | nc $listy $port" SIGINT
 
@@ -28,11 +29,11 @@ then
 	# If the connection is succesful, send the F message to listy.sh
 	if [ ${res:${#res} - 10} == "succeeded!" ]
 	then
-		echo "F $curhost $2" | nc $listy $port
+		echo "F $curhost $2" | nc $listyip $listyport
 
 	# If not, send the N message to listy.sh
 	else		
-		echo "N $curhost $2" | nc $listy $port
+		echo "N $curhost $2" | nc $listyip $listyport
 	fi
 
 elif [ $1 == "A" ]
