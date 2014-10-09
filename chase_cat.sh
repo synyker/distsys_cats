@@ -1,7 +1,7 @@
 # Catty and Jazzy communicate to Cordy through Listy cat.
 
 name=$2
-port=$(cat $file"/nc_port_number")
+port=$(cat "nc_port_number")
 
 if [ $1 == "S" ]
 then
