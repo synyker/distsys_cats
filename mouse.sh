@@ -15,11 +15,11 @@ while true; do
 		echo "I WAS CAUGHT"
 		name=${res:0:5}
 		echo "$name"
-		if [ $name == "Catty"]
+		if [ $name == "Catty" ]
 		then
 			pid=$(cat "cattypid")
 			kill -INT $pid
-		elif [ $name == "Jazzy"]
+		elif [ $name == "Jazzy" ]
 		then
 			pid=$(cat "jazzypid")
 			kill -INT $pid
