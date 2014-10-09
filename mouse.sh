@@ -11,7 +11,7 @@ res=`nc -v -l -q 0 $port`
 while true; do
 
 	if [ ${res:${#res} - 4} == "MEOW" ]
-    then
+	then
 		echo "I WAS CAUGHT"
 		name=${res:0:5}
 		echo "$name"
@@ -25,7 +25,7 @@ while true; do
 			kill -INT $pid
 		fi
 		break
-    else
-        res=`nc -v -l -q 0 $port`
-    fi
+	else
+		res=`nc -v -l -q 0 $port`
+	fi
 done
