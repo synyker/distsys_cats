@@ -6,7 +6,7 @@ port=$(cat $file"/nc_port_number")
 if [ $1 == "S" ]
 then
 	echo "SEARCHING"
-	res=`netcat -v -w 0 localhost $port`
+	res=$(nc -v -w 0 localhost $port)
 	if [ ${res:-10} == "succeeded!" ]
 	then
 		echo "success!"
