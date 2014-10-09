@@ -40,11 +40,12 @@ while true; do
 		# No mouse at the node, send the cat to the next node
 		elif [ ${line:0:1} == "N"]
 		then
-
+			echo "N"
 
 		# The mouse was caught
 		elif [ ${line:0:1} == "G"]
 		then
+			echo "G"
 		
 		fi
 
