@@ -17,10 +17,11 @@
 
 
 linecounter=1
-node=$(sed -n "$linecounterp" < ukkonodes)
+char='p'
+node=$(sed -n "$linecounter$char" < ukkonodes)
 echo $node
 linecounter=$[$linecounter+1]
-node=$(sed -n "$linecounterp" < ukkonodes)
+node=$(sed -n "$linecounter$char" < ukkonodes)
 echo $node
 
 while true; do
