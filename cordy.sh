@@ -14,3 +14,19 @@
 # F ukkoXXX catname     Found the mouse on ukkoXXX (e.g. F ukko300 Catty),
 # N ukkoXXX catname    No mouse on ukkoXXX,
 # G ukkoXXX catname    Got the mouse
+
+while true; do
+
+	count=$(cat cmsg | wc -l)
+
+	if [ $count -gt 0 ]
+	then
+		line=$(head -n 1 cmsg)
+		sed -i 1d cmsg
+
+		echo "$line"
+
+	fi
+
+	sleep 3
+done
