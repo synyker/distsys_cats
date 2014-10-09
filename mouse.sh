@@ -10,7 +10,7 @@ res=`nc -v -l -q 0 $port`
 
 while true; do
 
-	if [ ${res:${#res} - 4} == "MEOW"]
+	if [ ${res:${#res} - 4} == "MEOW" ]
     then
 		echo "I WAS CAUGHT"
 		name=${res:0:5}

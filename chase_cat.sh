@@ -40,7 +40,7 @@ then
 	res=$(echo "$2: MEOW" | nc localhost $port)
 	sleep 10s
 	echo "SHUTTING DOWN..."
-	break
+	exit
 else
-	break
+	exit
 fi
