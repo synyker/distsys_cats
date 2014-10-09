@@ -1,0 +1,1 @@
+# Listy keeps an open socket through nc and writes the messages to a file called cmsg.
