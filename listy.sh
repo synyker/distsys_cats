@@ -8,7 +8,9 @@ function cleanup {
 trap cleanup SIGINT
 
 echo $$ > listypid
+
 port=$(cat "nc_port_number")
+
 while true; do
 	msg=$(nc -l $port)
 	echo $msg >> cmsg

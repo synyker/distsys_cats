@@ -22,32 +22,32 @@ baseip=".hpc.cs.helsinki.fi"
 folder=$(pwd)
 
 # First send the mouse to random ukko node
-countnodes=$(cat ukkonodes | wc -l)
+countnodes=$(cat $folder/ukkonodes | wc -l)
 rnd=$(( ( RANDOM % $countnodes ) + 1 ))
-mousenode=$(sed -n "$rnd$char" < ukkonodes)
+mousenode=$(sed -n "$rnd$char" < $folder/ukkonodes)
 ssh $mousenode$baseip ./$folder/mouse.sh
 
 # Start listy.sh on the correct node
-listynode=$(cat "listy_location")
+listynode=$(cat "$folder/listy_location")
 ssh $listynode$baseip ./$folder/listy.sh
 
 # Then send the cats to first two nodes in the list
-node=$(sed -n "$linecounter$char" < ukkonodes)
+node=$(sed -n "$linecounter$char" < $folder/ukkonodes)
 echo $node
 ssh $node$baseip ./$folder/chase_cat S Catty
 
 linecounter=$[$linecounter+1]
-node=$(sed -n "$linecounter$char" < ukkonodes)
+node=$(sed -n "$linecounter$char" < $folder/ukkonodes)
 echo $node
 ssh $node$baseip ./$folder/chase_cat S Jazzy
 
 while true; do
 
-	count=$(cat cmsg | wc -l)
+	count=$(cat $folder/cmsg | wc -l)
 
 	if [ $count -gt 0 ]
 	then
-		line=$(head -n 1 cmsg)
+		line=$(head -n 1 $folder/cmsg)
 		cat=${line:${#line} - 5}
 
 		# Found the mouse, send the other cat to the same node
@@ -63,7 +63,7 @@ while true; do
 				if [ $cat == "Catty" ]
 				then
 					# Sleep until cat's old process dies
-					while [ -e jazzypid ]; do
+					while [ -e $folder/jazzypid ]; do
 						sleep 1
 					done
 					
@@ -72,7 +72,7 @@ while true; do
 				elif [ $cat == "Jazzy" ]
 				then
 					# Sleep until cat's old process dies
-					while [ -e cattypid ]; do
+					while [ -e $folder/cattypid ]; do
 						sleep 1
 					done
 	
@@ -106,13 +106,13 @@ while true; do
 		then
 			
 			echo "VICTORY"
-			pid=$(cat "listypid")
+			pid=$(cat "$folder/listypid")
 			kill -INT $pid
 			exit
 
 		fi
 
-		sed -i 1d cmsg
+		sed -i 1d $folder/cmsg
 
 	fi
 
