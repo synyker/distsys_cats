@@ -19,26 +19,27 @@ found=0
 linecounter=1
 char="p"
 baseip=".hpc.cs.helsinki.fi"
+folder=$(pwd)
 
 # First send the mouse to random ukko node
 countnodes=$(cat ukkonodes | wc -l)
 rnd=$(( ( RANDOM % $countnodes ) + 1 ))
 mousenode=$(sed -n "$rnd$char" < ukkonodes)
-ssh $mousenode$baseip ./mouse.sh
+ssh $mousenode$baseip ./$folder/mouse.sh
 
 # Start listy.sh on the correct node
 listynode=$(cat "listy_location")
-ssh $listynode$baseip ./listy.sh
+ssh $listynode$baseip ./$folder/listy.sh
 
 # Then send the cats to first two nodes in the list
 node=$(sed -n "$linecounter$char" < ukkonodes)
 echo $node
-ssh $node$baseip ./chase_cat S Catty
+ssh $node$baseip ./$folder/chase_cat S Catty
 
 linecounter=$[$linecounter+1]
 node=$(sed -n "$linecounter$char" < ukkonodes)
 echo $node
-ssh $node$baseip ./chase_cat S Jazzy
+ssh $node$baseip ./$folder/chase_cat S Jazzy
 
 while true; do
 
@@ -66,7 +67,7 @@ while true; do
 						sleep 1
 					done
 					
-					ssh $node$baseip ./chase_cat S Jazzy
+					ssh $node$baseip ./$folder/chase_cat S Jazzy
 					
 				elif [ $cat == "Jazzy" ]
 				then
@@ -75,14 +76,14 @@ while true; do
 						sleep 1
 					done
 	
-					ssh $node$baseip ./chase_cat S Catty
+					ssh $node$baseip ./$folder/chase_cat S Catty
 
 				fi
 
 			# Both cats found the mouse, send attack command
 			elif [ $found -eq 2 ]
 			then
-				ssh $node$baseip ./chase_cat A $cat
+				ssh $node$baseip ./$folder/chase_cat A $cat
 			fi
 			
 			echo "$node"
@@ -97,7 +98,7 @@ while true; do
 			if [ $linecounter -le $count ]
 			then
 				node=$(sed -n "$linecounter$char" < ukkonodes)
-				ssh $node$baseip ./chase_cat S $cat
+				ssh $node$baseip ./$folder/chase_cat S $cat
 			fi
 
 		# The mouse was caught, cordy sends SIGINT to listy and exits
