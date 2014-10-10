@@ -2,10 +2,26 @@
 
 port=$(cat "nc_port_number")
 curhost=$(hostname)
+name=$2
 listyip=$(sed -n "1p" < "listy_location")
 listyport=$(sed -n "2p" < "listy_location")
 
-trap "echo 'G $curhost $2' | nc $listy $port" SIGINT
+function message_listy {
+	echo "messaging listy"
+	echo "G $curhost $name"  | nc $listyip $listyport
+
+	if [ $name == "Catty" ]
+	then 
+		rm cattypid
+	elif [ $name == "Jazzy" ]
+	then
+		rm jazzypid
+	fi
+
+	exit
+}
+
+trap message_listy SIGINT
 
 # Check the parameters for the cat's name and save 
 # the process pid to the cat's pid file
@@ -29,17 +45,17 @@ then
 	# If the connection is succesful, send the F message to listy.sh
 	if [ ${res:${#res} - 10} == "succeeded!" ]
 	then
-		echo "F $curhost $2" | nc $listyip $listyport
+		echo "F $curhost $name" | nc $listyip $listyport
 
 	# If not, send the N message to listy.sh
 	else		
-		echo "N $curhost $2" | nc $listyip $listyport
+		echo "N $curhost $name" | nc $listyip $listyport
 	fi
 
 elif [ $1 == "A" ]
 then
-	res=$(echo "$2: MEOW" | nc localhost $port)
-	sleep 10s
+	res=$(echo "$name: MEOW" | nc localhost $port)
+	sleep 2s
 	echo "SHUTTING DOWN..."
 	exit
 else
