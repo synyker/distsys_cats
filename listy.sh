@@ -1,6 +1,14 @@
 # Listy keeps an open socket through nc and writes the messages to a file called cmsg.
 
-port=$(sed -n 2p < listy_location)
+function cleanup {
+	rm listypid
+	exit
+}
+
+trap cleanup SIGINT
+
+echo $$ > listypid
+port=$(cat "nc_port_number")
 while true; do
 	msg=$(nc -l $port)
 	echo $msg >> cmsg

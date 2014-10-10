@@ -3,12 +3,11 @@
 port=$(cat "nc_port_number")
 curhost=$(hostname)
 name=$2
-listyip=$(sed -n "1p" < "listy_location")
-listyport=$(sed -n "2p" < "listy_location")
+listyip=$(cat "listy_location")
 
 function message_listy {
 	echo "messaging listy"
-	echo "G $curhost $name"  | nc $listyip $listyport
+	echo "G $curhost $name"  | nc $listyip $port
 
 	if [ $name == "Catty" ]
 	then 
@@ -25,38 +24,43 @@ trap message_listy SIGINT
 
 # Check the parameters for the cat's name and save 
 # the process pid to the cat's pid file
-if [ $2 == "Catty" ]
+if [ $name == "Catty" ]
 then
 	echo $$ > cattypid
-elif [ $2 == "Jazzy" ]
+elif [ $name == "Jazzy" ]
 then
 	echo $$ > jazzypid
+# Or exit if invalid cat name provided
 else
-	break
+	exit
 fi
 
 # If searching
 if [ $1 == "S" ]
 then
-
+	
 	# Try to connect to the mouse.sh netcat on current ukko node
 	res=$(nc -v -w 0 localhost $port 2>&1)
 
 	# If the connection is succesful, send the F message to listy.sh
 	if [ ${res:${#res} - 10} == "succeeded!" ]
 	then
-		echo "F $curhost $name" | nc $listyip $listyport
+		echo "F $curhost $name" | nc $listyip $port
 
 	# If not, send the N message to listy.sh
 	else		
-		echo "N $curhost $name" | nc $listyip $listyport
+		echo "N $curhost $name" | nc $listyip $port
 	fi
 
+# If attacking
 elif [ $1 == "A" ]
 then
+	# The attack takes 5 seconds
+	sleep 5
+	# The attacking cat's name is attached to the message for the mouse to distinguish between attackers
 	res=$(echo "$name: MEOW" | nc localhost $port)
-	sleep 2s
-	echo "SHUTTING DOWN..."
+	# The attacking cat will wait 10 seconds for the SIGINT signal, then exit if it's not received
+	sleep 10
 	exit
 else
 	exit

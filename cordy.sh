@@ -15,14 +15,30 @@
 # N ukkoXXX catname    No mouse on ukkoXXX,
 # G ukkoXXX catname    Got the mouse
 
-
+found=0
 linecounter=1
-char='p'
+char="p"
+baseip=".hpc.cs.helsinki.fi"
+
+# First send the mouse to random ukko node
+countnodes=$(cat ukkonodes | wc -l)
+rnd=$(( ( RANDOM % $countnodes ) + 1 ))
+mousenode=$(sed -n "$rnd$char" < ukkonodes)
+ssh $mousenode$baseip ./mouse.sh
+
+# Start listy.sh on the correct node
+listynode=$(cat "listy_location")
+ssh $listynode$baseip ./listy.sh
+
+# Then send the cats to first two nodes in the list
 node=$(sed -n "$linecounter$char" < ukkonodes)
 echo $node
+ssh $node$baseip ./chase_cat S Catty
+
 linecounter=$[$linecounter+1]
 node=$(sed -n "$linecounter$char" < ukkonodes)
 echo $node
+ssh $node$baseip ./chase_cat S Jazzy
 
 while true; do
 
@@ -31,28 +47,71 @@ while true; do
 	if [ $count -gt 0 ]
 	then
 		line=$(head -n 1 cmsg)
+		cat=${line:${#line} - 5}
 
 		# Found the mouse, send the other cat to the same node
 		if [ ${line:0:1} == "F"]
 		then
+			
 			node=${line:2:7}
+			found=$[$found+1]
+
+			# One cat found the mouse, send the other to the same node
+			if [ $found -eq 1 ]
+			then
+				if [ $cat == "Catty" ]
+				then
+					# Sleep until cat's old process dies
+					while [ -e jazzypid ]; do
+						sleep 1
+					done
+					
+					ssh $node$baseip ./chase_cat S Jazzy
+					
+				elif [ $cat == "Jazzy" ]
+				then
+					# Sleep until cat's old process dies
+					while [ -e cattypid ]; do
+						sleep 1
+					done
+	
+					ssh $node$baseip ./chase_cat S Catty
+
+				fi
+
+			# Both cats found the mouse, send attack command
+			elif [ $found -eq 2 ]
+			then
+				ssh $node$baseip ./chase_cat A $cat
+			fi
+			
 			echo "$node"
 
 		# No mouse at the node, send the cat to the next node
 		elif [ ${line:0:1} == "N"]
 		then
-			echo "N"
+			
+			linecounter=$[$linecounter+1]
 
-		# The mouse was caught
+			# Only proceed if end of ukkonodes file hasn't been reached
+			if [ $linecounter -le $count ]
+			then
+				node=$(sed -n "$linecounter$char" < ukkonodes)
+				ssh $node$baseip ./chase_cat S $cat
+			fi
+
+		# The mouse was caught, cordy sends SIGINT to listy and exits
 		elif [ ${line:0:1} == "G"]
 		then
-			echo "G"
-		
+			
+			echo "VICTORY"
+			pid=$(cat "listypid")
+			kill -INT $pid
+			exit
+
 		fi
 
 		sed -i 1d cmsg
-
-		echo "$line"
 
 	fi
 
