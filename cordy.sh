@@ -51,7 +51,7 @@ while true; do
 		cat=${line:${#line} - 5}
 
 		# Found the mouse, send the other cat to the same node
-		if [ ${line:0:1} == "F"]
+		if [ -n line -a ${line:0:1} == "F"]
 		then
 			
 			node=${line:2:7}
@@ -89,7 +89,7 @@ while true; do
 			echo "$node"
 
 		# No mouse at the node, send the cat to the next node
-		elif [ ${line:0:1} == "N"]
+		elif [ -n line -a ${line:0:1} == "N"]
 		then
 			
 			linecounter=$[$linecounter+1]
@@ -102,7 +102,7 @@ while true; do
 			fi
 
 		# The mouse was caught, cordy sends SIGINT to listy and exits
-		elif [ ${line:0:1} == "G"]
+		elif [ -n line -a ${line:0:1} == "G"]
 		then
 			
 			echo "VICTORY"
