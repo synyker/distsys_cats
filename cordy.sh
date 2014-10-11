@@ -25,7 +25,8 @@ folder=$(pwd)
 countnodes=$(cat $folder/ukkonodes | wc -l)
 rnd=$(( ( RANDOM % $countnodes ) + 1 ))
 mousenode=$(sed -n "$rnd$char" < $folder/ukkonodes)
-ssh $mousenode$baseip cd $folder && ./mouse.sh &
+command=$(cd $folder && ./mouse.sh)
+ssh $mousenode$baseip $command &
 
 # Start listy.sh on the correct node
 listynode=$(cat "$folder/listy_location")
