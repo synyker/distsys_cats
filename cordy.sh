@@ -50,72 +50,74 @@ while true; do
 	if [ $count -gt 0 ]
 	then
 		line=$(head -n 1 $folder/cmsg)
-		cat=${line:${#line} - 5}
-
-		# Found the mouse, send the other cat to the same node
-		if [ -n $line -a ${line:0:1} == "F" ]
+		if [ -n $line ]
 		then
-			
-			node=${line:2:7}
-			found=$[$found+1]
+			cat=${line:${#line} - 5}
 
-			# One cat found the mouse, send the other to the same node
-			if [ $found -eq 1 ]
+			# Found the mouse, send the other cat to the same node
+			if [ ${line:0:1} == "F" ]
 			then
-				if [ $cat == "Catty" ]
-				then
-					# Sleep until cat's old process dies
-					while [ -e $folder/jazzypid ]; do
-						sleep 1
-					done
-					
-					ssh $node$baseip "cd $folder && ./chase_cat S Jazzy" &
-					
-				elif [ $cat == "Jazzy" ]
-				then
-					# Sleep until cat's old process dies
-					while [ -e $folder/cattypid ]; do
-						sleep 1
-					done
-	
-					ssh $node$baseip "cd $folder && ./chase_cat S Catty" &
+				
+				node=${line:2:7}
+				found=$[$found+1]
 
+				# One cat found the mouse, send the other to the same node
+				if [ $found -eq 1 ]
+				then
+					if [ $cat == "Catty" ]
+					then
+						# Sleep until cat's old process dies
+						while [ -e $folder/jazzypid ]; do
+							sleep 1
+						done
+						
+						ssh $node$baseip "cd $folder && ./chase_cat S Jazzy" &
+						
+					elif [ $cat == "Jazzy" ]
+					then
+						# Sleep until cat's old process dies
+						while [ -e $folder/cattypid ]; do
+							sleep 1
+						done
+		
+						ssh $node$baseip "cd $folder && ./chase_cat S Catty" &
+
+					fi
+
+				# Both cats found the mouse, send attack command
+				elif [ $found -eq 2 ]
+				then
+					ssh $node$baseip "cd $folder && ./chase_cat A $cat" &
+				fi
+				
+				echo "$node"
+
+			# No mouse at the node, send the cat to the next node
+			elif [ ${line:0:1} == "N" ]
+			then
+				
+				linecounter=$[$linecounter+1]
+
+				# Only proceed if end of ukkonodes file hasn't been reached
+				if [ $linecounter -le $count ]
+				then
+					node=$(sed -n "$linecounter$char" < ukkonodes)
+					ssh "$node$baseip cd $folder && ./chase_cat S $cat" &
 				fi
 
-			# Both cats found the mouse, send attack command
-			elif [ $found -eq 2 ]
+			# The mouse was caught, cordy sends SIGINT to listy and exits
+			elif [ ${line:0:1} == "G" ]
 			then
-				ssh $node$baseip "cd $folder && ./chase_cat A $cat" &
-			fi
-			
-			echo "$node"
+				
+				echo "VICTORY"
+				pid=$(cat "$folder/listypid")
+				kill -INT $pid
+				exit
 
-		# No mouse at the node, send the cat to the next node
-		elif [ -n $line -a ${line:0:1} == "N" ]
-		then
-			
-			linecounter=$[$linecounter+1]
-
-			# Only proceed if end of ukkonodes file hasn't been reached
-			if [ $linecounter -le $count ]
-			then
-				node=$(sed -n "$linecounter$char" < ukkonodes)
-				ssh "$node$baseip cd $folder && ./chase_cat S $cat" &
 			fi
 
-		# The mouse was caught, cordy sends SIGINT to listy and exits
-		elif [ -n $line -a ${line:0:1} == "G" ]
-		then
-			
-			echo "VICTORY"
-			pid=$(cat "$folder/listypid")
-			kill -INT $pid
-			exit
-
+			sed -i 1d $folder/cmsg
 		fi
-
-		sed -i 1d $folder/cmsg
-
 	fi
 
 	sleep 3
