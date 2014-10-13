@@ -13,25 +13,24 @@ echo "MOUSE RESULT: $res"
 while true; do
 
 	echo "MOUSE: STARTING LOOP" >> ex2.log
-	if [ -n $res ]
+	
+	if [ "${res:${#res} - 4}" == "MEOW" ]
 	then
-		if [ "${res:${#res} - 4}" == "MEOW" ]
+		echo "I WAS CAUGHT"
+		name=${res:0:5}
+		echo "$name"
+		if [ $name == "Catty" ]
 		then
-			echo "I WAS CAUGHT"
-			name=${res:0:5}
-			echo "$name"
-			if [ $name == "Catty" ]
-			then
-				pid=$(cat "cattypid")
-				kill -INT $pid
-			elif [ $name == "Jazzy" ]
-			then
-				pid=$(cat "jazzypid")
-				kill -INT $pid
-			fi
-			break
-		else
-			res=$(nc -l -q 0 $port)
+			pid=$(cat "cattypid")
+			kill -INT $pid
+		elif [ $name == "Jazzy" ]
+		then
+			pid=$(cat "jazzypid")
+			kill -INT $pid
 		fi
+		break
+	else if [ "$res" == "HI MOUSE"]
+		res=$(nc -l -q 0 $port)
 	fi
+
 done
