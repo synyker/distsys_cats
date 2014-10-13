@@ -45,7 +45,9 @@ then
 	res=$(nc -v -w 0 localhost $port 2>&1)
 
 	# If the connection is succesful, send the F message to listy.sh
-	if [ ${res:${#res} - 10} == "succeeded!" ]
+	status_end=${res:${#res} - 10}
+	echo "$status_end"
+	if [ $status_end == "succeeded!" ]
 	then
 		echo "F $curhost $name" | nc $listyip $port
 
