@@ -25,7 +25,7 @@ echo "$folder"
 # First send the mouse to random ukko node
 countnodes=$(cat ukkonodes | wc -l)
 rnd=$(( ( RANDOM % $countnodes ) + 1 ))
-mousenode=$(sed -n "$rnd$char" < /ukkonodes)
+mousenode=$(sed -n "$rnd$char" < ukkonodes)
 ssh $mousenode$baseip "cd $folder && ./mouse.sh" &
 
 # Start listy.sh on the correct node
@@ -33,7 +33,7 @@ listynode=$(cat "listy_location")
 ssh $listynode$baseip "cd $folder && ./listy.sh" &
 
 # Then send the cats to first two nodes in the list
-node=$(sed -n "$linecounter$char" < $ukkonodes)
+node=$(sed -n "$linecounter$char" < ukkonodes)
 echo $node
 ssh $node$baseip "cd $folder && ./chase_cat S Catty" &
 
