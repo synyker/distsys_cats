@@ -19,28 +19,26 @@ found=0
 linecounter=1
 char="p"
 baseip=".hpc.cs.helsinki.fi"
-folder="distsys/ex2/distsys_cats"
-testfolder=$(pwd)
-echo "$testfolder"
+folder=$(pwd)
 echo "$folder"
 
 # First send the mouse to random ukko node
-countnodes=$(cat $folder/ukkonodes | wc -l)
+countnodes=$(cat ukkonodes | wc -l)
 rnd=$(( ( RANDOM % $countnodes ) + 1 ))
-mousenode=$(sed -n "$rnd$char" < $folder/ukkonodes)
+mousenode=$(sed -n "$rnd$char" < /ukkonodes)
 ssh $mousenode$baseip "cd $folder && ./mouse.sh" &
 
 # Start listy.sh on the correct node
-listynode=$(cat "$folder/listy_location")
+listynode=$(cat "listy_location")
 ssh $listynode$baseip "cd $folder && ./listy.sh" &
 
 # Then send the cats to first two nodes in the list
-node=$(sed -n "$linecounter$char" < $folder/ukkonodes)
+node=$(sed -n "$linecounter$char" < $ukkonodes)
 echo $node
 ssh $node$baseip "cd $folder && ./chase_cat S Catty" &
 
 linecounter=$[$linecounter+1]
-node=$(sed -n "$linecounter$char" < $folder/ukkonodes)
+node=$(sed -n "$linecounter$char" < ukkonodes)
 echo $node
 ssh $node$baseip "cd $folder && ./chase_cat S Jazzy" &
 
@@ -50,11 +48,11 @@ while true; do
 
 	echo "CORDY: STARTING LOOP" >> ex2.log
 
-	count=$(cat $folder/cmsg | wc -l)
+	count=$(cat cmsg | wc -l)
 
 	if [ $count -gt 0 ]
 	then
-		line=$(head -n 1 $folder/cmsg)
+		line=$(head -n 1 cmsg)
 		if [ -n $line ]
 		then
 			cat=${line:${#line} - 5}
@@ -72,7 +70,7 @@ while true; do
 					if [ $cat == "Catty" ]
 					then
 						# Sleep until cat's old process dies
-						while [ -e $folder/jazzypid ]; do
+						while [ -e jazzypid ]; do
 							sleep 1
 						done
 						
@@ -81,7 +79,7 @@ while true; do
 					elif [ $cat == "Jazzy" ]
 					then
 						# Sleep until cat's old process dies
-						while [ -e $folder/cattypid ]; do
+						while [ -e cattypid ]; do
 							sleep 1
 						done
 		
@@ -115,13 +113,13 @@ while true; do
 			then
 				
 				echo "VICTORY"
-				pid=$(cat "$folder/listypid")
+				pid=$(cat "listypid")
 				kill -INT $pid
 				exit
 
 			fi
 
-			sed -i 1d $folder/cmsg
+			sed -i 1d cmsg
 		fi
 	fi
 
