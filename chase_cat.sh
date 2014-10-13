@@ -42,7 +42,7 @@ then
 	echo "chase_cat: SEARCHING" >> ex2.log
 
 	# Try to connect to the mouse.sh netcat on current ukko node
-	res=$(echo "HI MOUSE" | nc -v localhost $port)
+	res=$(echo "HI MOUSE" | nc -v localhost $port)
 
 	# If the connection is succesful, send the F message to listy.sh
 	if [ "${res:${#res} - 10}" == "succeeded!" ]
