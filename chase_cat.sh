@@ -42,10 +42,12 @@ if [ $1 == "S" ]
 then
 
 	# Try to connect to the mouse.sh netcat on current ukko node
-	res=$(echo "HI MOUSE" | nc -v localhost $port)
+	#res=$(echo "HI MOUSE" | nc -v localhost $port)
+	res=$(lsof -i :$port)
 
 	# If the connection is succesful, send the F message to listy.sh
-	if [ "${res:${#res} - 10}" == "succeeded!" ]
+	#if [ "${res:${#res} - 10}" == "succeeded!" ]
+	if [ -n "$res"]
 	then
 		echo "F $curhost $name" | nc $listyip $port
 

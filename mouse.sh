@@ -9,24 +9,15 @@ res=$(nc -l -q 0 $port)
 
 echo "MOUSE RESULT: $res"
 
-while true; do
-	
-	if [ "${res:${#res} - 4}" == "MEOW" ]
+if [ "${res:${#res} - 4}" == "MEOW" ]
+then
+	name=${res:0:1}
+	if [ "$name" == "C" ]
 	then
-		name=${res:0:1}
-		if [ "$name" == "C" ]
-		then
-			pid=$(cat "cattypid")
-			kill -INT $pid
-		elif [ "$name" == "J" ]
-		then
-			pid=$(cat "jazzypid")
-			kill -INT $pid
-		fi
-		
-	elif [ "$res" == "HI MOUSE" ]
+		pid=$(cat "cattypid")
+		kill -INT $pid
+	elif [ "$name" == "J" ]
 	then
-		res=$(nc -l -q 0 $port)
+		pid=$(cat "jazzypid")
+		kill -INT $pid
 	fi
-
-done
