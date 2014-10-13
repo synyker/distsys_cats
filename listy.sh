@@ -12,7 +12,7 @@ echo $$ > listypid
 port="30140"
 
 while true; do
-	msg=$(nc -l $port)
+	msg=$(nc -l -q 0 $port)
 	echo "LISTY: SAVING MESSAGE" >> ex2.log
 	echo $msg >> cmsg
 done
