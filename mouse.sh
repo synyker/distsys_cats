@@ -6,7 +6,7 @@ echo "pid: $pid"
 port=$(cat "nc_port_number")
 echo "$port"
 echo "MOUSE: FIRST NC STARTING" >> ex2.log
-res=$(nc -v -l -q 0 $port)
+res=$(nc -l -q 0 $port)
 
 echo "MOUSE RESULT: $res"
 
