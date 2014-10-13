@@ -9,7 +9,7 @@ listyip=$(cat "listy_location")
 
 function message_listy {
 	echo "messaging listy"
-	echo "G $curhost $name" | nc $listyip $port
+	echo "G $curhost $name" | nc $listyip 30303 #$port
 
 	if [ $name == "Catty" ]
 	then 
@@ -49,11 +49,11 @@ then
 	#if [ "${res:${#res} - 10}" == "succeeded!" ]
 	if [ -n "$res" ]
 	then
-		echo "F $curhost $name" | nc $listyip $port
+		echo "F $curhost $name" | nc $listyip 30303 #$port
 
 	# If not, send the N message to listy.sh
 	else		
-		echo "N $curhost $name" | nc $listyip $port
+		echo "N $curhost $name" | nc $listyip 30303 #$port
 	fi
 
 # If attacking
