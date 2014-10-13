@@ -23,7 +23,7 @@ while true; do
 			pid=$(cat "jazzypid")
 			kill -INT $pid
 		fi
-		break
+		
 	elif [ "$res" == "HI MOUSE" ]
 	then
 		res=$(nc -l -q 0 $port)
