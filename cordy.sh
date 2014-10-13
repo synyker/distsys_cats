@@ -55,12 +55,12 @@ while true; do
 	if [ $count -gt 0 ]
 	then
 		line=$(head -n 1 cmsg)
-		if [ -n $line ]
+		if [ -n "$line" ]
 		then
 			cat=${line:${#line} - 5}
 
 			# Found the mouse, send the other cat to the same node
-			if [ ${line:0:1} == "F" ]
+			if [ "${line:0:1}" == "F" ]
 			then
 				
 				node=${line:2:7}
@@ -69,7 +69,7 @@ while true; do
 				# One cat found the mouse, send the other to the same node
 				if [ $found -eq 1 ]
 				then
-					if [ $cat == "Catty" ]
+					if [ "$cat" == "Catty" ]
 					then
 						# Sleep until cat's old process dies
 						while [ -e jazzypid ]; do
@@ -78,7 +78,7 @@ while true; do
 						
 						ssh $node$baseip "cd $folder && ./chase_cat.sh S Jazzy" &
 						
-					elif [ $cat == "Jazzy" ]
+					elif [ "$cat" == "Jazzy" ]
 					then
 						# Sleep until cat's old process dies
 						while [ -e cattypid ]; do
@@ -98,7 +98,7 @@ while true; do
 				echo "$node"
 
 			# No mouse at the node, send the cat to the next node
-			elif [ ${line:0:1} == "N" ]
+			elif [ "${line:0:1}" == "N" ]
 			then
 				
 				linecounter=$[$linecounter+1]
@@ -111,7 +111,7 @@ while true; do
 				fi
 
 			# The mouse was caught, cordy sends SIGINT to listy and exits
-			elif [ ${line:0:1} == "G" ]
+			elif [ "${line:0:1}" == "G" ]
 			then
 				
 				echo "VICTORY"
