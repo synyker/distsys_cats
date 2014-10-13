@@ -9,7 +9,7 @@ trap cleanup SIGINT
 
 echo $$ > listypid
 
-port="30140"
+port="28438"
 
 while true; do
 	msg=$(nc -l -q 0 $port)

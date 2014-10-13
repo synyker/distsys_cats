@@ -7,7 +7,7 @@ listyip=$(cat "listy_location")
 
 function message_listy {
 	echo "messaging listy"
-	echo "G $curhost $name"  | nc $listyip 30140 #$port
+	echo "G $curhost $name"  | nc $listyip 28438 #$port
 
 	if [ $name == "Catty" ]
 	then 
@@ -45,9 +45,7 @@ then
 	res=$(nc -v -w 0 localhost $port 2>&1)
 
 	# If the connection is succesful, send the F message to listy.sh
-	status_end=${res:${#res} - 10}
-	echo "$status_end"
-	if [ $status_end == "succeeded!" ]
+	if [ "${res:${#res} - 10}" == "succeeded!" ]
 	then
 		echo "F $curhost $name" | nc $listyip $port
 
