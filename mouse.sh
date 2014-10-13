@@ -5,12 +5,13 @@ echo "pid: $pid"
 
 port=$(cat "nc_port_number")
 echo "$port"
-
+echo "MOUSE: FIRST NC STARTING" >> ex2.log
 res=`nc -v -l -q 0 $port`
 
-sleep 10
 while true; do
 
+	echo "MOUSE: STARTING LOOP" >> ex2.log
+	
 	if [ ${res:${#res} - 4} == "MEOW" ]
 	then
 		echo "I WAS CAUGHT"

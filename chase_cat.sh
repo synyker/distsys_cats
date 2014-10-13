@@ -39,6 +39,8 @@ fi
 if [ $1 == "S" ]
 then
 	
+	echo "CHASE_CAT: SEARCHING" >> ex2.log
+	
 	# Try to connect to the mouse.sh netcat on current ukko node
 	res=$(nc -v -w 0 localhost $port 2>&1)
 

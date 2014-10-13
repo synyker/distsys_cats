@@ -45,6 +45,8 @@ echo "SCRIPTS STARTED"
 
 while true; do
 
+	echo "CORDY: STARTING LOOP" >> ex2.log
+
 	count=$(cat $folder/cmsg | wc -l)
 
 	if [ $count -gt 0 ]
@@ -120,5 +122,6 @@ while true; do
 		fi
 	fi
 
+	echo "CORDY: ENDING LOOP" >> ex2.log
 	sleep 3
 done
