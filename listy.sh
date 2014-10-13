@@ -13,6 +13,5 @@ port=$(cat "nc_port_number")
 
 while true; do
 	msg=$(nc -l -q 0 $port)
-	echo "LISTY: SAVING MESSAGE" >> ex2.log
 	echo $msg >> cmsg
 done

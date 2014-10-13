@@ -15,12 +15,13 @@
 # N ukkoXXX catname    No mouse on ukkoXXX,
 # G ukkoXXX catname    Got the mouse
 
+echo "CORDY STARTED"
+
 found=0
 linecounter=1
 char="p"
 baseip=".hpc.cs.helsinki.fi"
 folder=$(pwd)
-echo "$folder"
 
 # First send the mouse to random ukko node
 countnodes=$(cat ukkonodes | wc -l)
@@ -36,19 +37,15 @@ ssh $listynode$baseip "cd $folder && ./listy.sh" &
 
 # Then send the cats to first two nodes in the list
 node=$(sed -n "$linecounter$char" < ukkonodes)
-echo $node
 ssh $node$baseip "cd $folder && ./chase_cat.sh S Catty" &
 
 linecounter=$[$linecounter+1]
 node=$(sed -n "$linecounter$char" < ukkonodes)
-echo $node
 ssh $node$baseip "cd $folder && ./chase_cat.sh S Jazzy" &
 
-echo "SCRIPTS STARTED"
+echo "ALL SCRIPTS STARTED, RUNNING"
 
 while true; do
-
-	echo "CORDY: STARTING LOOP" >> ex2.log
 
 	count=$(cat cmsg | wc -l)
 
@@ -94,8 +91,6 @@ while true; do
 				then
 					ssh $node$baseip "cd $folder && ./chase_cat.sh A $cat" &
 				fi
-				
-				echo "$node"
 
 			# No mouse at the node, send the cat to the next node
 			elif [ "${line:0:1}" == "N" ]
@@ -139,6 +134,5 @@ while true; do
 		fi
 	fi
 
-	echo "CORDY: ENDING LOOP" >> ex2.log
 	sleep 3
 done

@@ -1,5 +1,7 @@
 # Catty and Jazzy communicate to Cordy through Listy cat.
 
+echo "CHASE_CAT $2 STARTED"
+
 port=$(cat "nc_port_number")
 curhost=$(hostname)
 name=$2
@@ -38,8 +40,6 @@ fi
 # If searching
 if [ $1 == "S" ]
 then
-	
-	echo "chase_cat: SEARCHING" >> ex2.log
 
 	# Try to connect to the mouse.sh netcat on current ukko node
 	res=$(echo "HI MOUSE" | nc -v localhost $port)

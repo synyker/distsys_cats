@@ -1,10 +1,10 @@
 # The mouse starts by going to one of the Ukko's nodes and listens a port through nc.
 
+echo "MOUSE STARTED"
+
 echo $$ > mousepid
 
 port=$(cat "nc_port_number")
-echo "$port"
-echo "MOUSE: FIRST NC STARTING" >> ex2.log
 res=$(nc -l -q 0 $port)
 
 echo "MOUSE RESULT: $res"
@@ -24,7 +24,8 @@ while true; do
 			kill -INT $pid
 		fi
 		break
-	else if [ "$res" == "HI MOUSE"]
+	elif [ "$res" == "HI MOUSE"]
+	then
 		res=$(nc -l -q 0 $port)
 	fi
 
