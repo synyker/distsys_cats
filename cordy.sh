@@ -19,7 +19,8 @@ found=0
 linecounter=1
 char="p"
 baseip=".hpc.cs.helsinki.fi"
-folder=$(pwd)
+folder="/cs/fs/home/jonnaira/distsys/ex2/distsys_cats"
+#$(pwd)
 echo "$folder"
 
 # First send the mouse to random ukko node
