@@ -19,8 +19,7 @@ found=0
 linecounter=1
 char="p"
 baseip=".hpc.cs.helsinki.fi"
-folder="/cs/fs/home/jonnaira/distsys/ex2/distsys_cats"
-#$(pwd)
+folder=$(pwd)
 echo "$folder"
 
 sleep 3
