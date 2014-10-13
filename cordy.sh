@@ -22,6 +22,7 @@ baseip=".hpc.cs.helsinki.fi"
 folder="distsys/ex2/distsys_cats/"
 testfolder=$(pwd)
 echo "$testfolder"
+echo "$folder"
 
 # First send the mouse to random ukko node
 countnodes=$(cat $folder/ukkonodes | wc -l)
