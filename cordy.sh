@@ -6,7 +6,7 @@
 # sending Catty and Jazzy with ssh to the nodes to search the mouse. 
 # Cordy gives the commands as command line parameter as follows:
 
-# S catname   Search the node (e.g. ./chase_cat.sh S Jazzy)
+# S catname   Search the node (e.g. ./chase_cat.sh.sh S Jazzy)
 # A catname   Attack the mouse on the node
 
 # Catty and Jazzy can send the following messages to Listy using nc:
@@ -37,12 +37,12 @@ ssh $listynode$baseip "cd $folder && ./listy.sh" &
 # Then send the cats to first two nodes in the list
 node=$(sed -n "$linecounter$char" < ukkonodes)
 echo $node
-ssh $node$baseip "cd $folder && ./chase_cat S Catty" &
+ssh $node$baseip "cd $folder && ./chase_cat.sh S Catty" &
 
 linecounter=$[$linecounter+1]
 node=$(sed -n "$linecounter$char" < ukkonodes)
 echo $node
-ssh $node$baseip "cd $folder && ./chase_cat S Jazzy" &
+ssh $node$baseip "cd $folder && ./chase_cat.sh S Jazzy" &
 
 echo "SCRIPTS STARTED"
 
@@ -76,7 +76,7 @@ while true; do
 							sleep 1
 						done
 						
-						ssh $node$baseip "cd $folder && ./chase_cat S Jazzy" &
+						ssh $node$baseip "cd $folder && ./chase_cat.sh S Jazzy" &
 						
 					elif [ $cat == "Jazzy" ]
 					then
@@ -85,14 +85,14 @@ while true; do
 							sleep 1
 						done
 		
-						ssh $node$baseip "cd $folder && ./chase_cat S Catty" &
+						ssh $node$baseip "cd $folder && ./chase_cat.sh S Catty" &
 
 					fi
 
 				# Both cats found the mouse, send attack command
 				elif [ $found -eq 2 ]
 				then
-					ssh $node$baseip "cd $folder && ./chase_cat A $cat" &
+					ssh $node$baseip "cd $folder && ./chase_cat.sh A $cat" &
 				fi
 				
 				echo "$node"
@@ -107,7 +107,7 @@ while true; do
 				if [ $linecounter -le $count ]
 				then
 					node=$(sed -n "$linecounter$char" < ukkonodes)
-					ssh "$node$baseip cd $folder && ./chase_cat S $cat" &
+					ssh "$node$baseip cd $folder && ./chase_cat.sh S $cat" &
 				fi
 
 			# The mouse was caught, cordy sends SIGINT to listy and exits
