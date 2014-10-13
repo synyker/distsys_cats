@@ -24,7 +24,7 @@ while true; do
 			kill -INT $pid
 		fi
 		break
-	elif [ "$res" == "HI MOUSE"]
+	elif [ "$res" == "HI MOUSE" ]
 	then
 		res=$(nc -l -q 0 $port)
 	fi
