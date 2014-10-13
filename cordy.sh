@@ -22,13 +22,13 @@ baseip=".hpc.cs.helsinki.fi"
 folder=$(pwd)
 echo "$folder"
 
-sleep 3
-
 # First send the mouse to random ukko node
 countnodes=$(cat ukkonodes | wc -l)
 rnd=$(( ( RANDOM % $countnodes ) + 1 ))
 mousenode=ukko192 #$(sed -n "$rnd$char" < ukkonodes)
 ssh $mousenode$baseip "cd $folder && ./mouse.sh" &
+
+sleep 10
 
 # Start listy.sh on the correct node
 listynode=$(cat "listy_location")
@@ -130,7 +130,7 @@ while true; do
 				pid=$(cat "mousepid")
 				kill -INT $pid
 				rm mousepid
-				
+
 				exit
 
 			fi
