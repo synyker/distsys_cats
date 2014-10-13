@@ -116,7 +116,21 @@ while true; do
 				
 				echo "VICTORY"
 				pid=$(cat "listypid")
+				kill -KILL $pid
+				rm listypid
+
+				pid=$(cat "cattypid")
+				kill -KILL $pid
+				rm cattypid
+
+				pid=$(cat "jazzypid")
+				kill -KILL $pid
+				rm jazzypid
+
+				pid=$(cat "mousepid")
 				kill -INT $pid
+				rm mousepid
+				
 				exit
 
 			fi
