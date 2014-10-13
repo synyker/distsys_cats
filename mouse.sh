@@ -6,14 +6,16 @@ echo "pid: $pid"
 port=$(cat "nc_port_number")
 echo "$port"
 echo "MOUSE: FIRST NC STARTING" >> ex2.log
-res=`nc -v -l -q 0 $port`
+res=$(nc -v -l -q 0 $port)
+
+echo "MOUSE RESULT: $res"
 
 while true; do
 
 	echo "MOUSE: STARTING LOOP" >> ex2.log
 	if [ -n $res ]
 	then
-		if [ ${res:${#res} - 4} == "MEOW" ]
+		if [ "${res:${#res} - 4}" == "MEOW" ]
 		then
 			echo "I WAS CAUGHT"
 			name=${res:0:5}
@@ -29,7 +31,7 @@ while true; do
 			fi
 			break
 		else
-			res=`nc -v -l -q 0 $port`
+			res=$(nc -l -q 0 $port)
 		fi
 	fi
 done
