@@ -13,12 +13,12 @@ while true; do
 	
 	if [ "${res:${#res} - 4}" == "MEOW" ]
 	then
-		name=${res:0:5}
-		if [ "$name" == "Catty" ]
+		name=${res:0:1}
+		if [ "$name" == "C" ]
 		then
 			pid=$(cat "cattypid")
 			kill -INT $pid
-		elif [ "$name" == "Jazzy" ]
+		elif [ "$name" == "J" ]
 		then
 			pid=$(cat "jazzypid")
 			kill -INT $pid

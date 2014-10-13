@@ -7,7 +7,7 @@ listyip=$(cat "listy_location")
 
 function message_listy {
 	echo "messaging listy"
-	echo "G $curhost $name"  | nc $listyip $port
+	echo "G $curhost $name" | nc $listyip $port
 
 	if [ $name == "Catty" ]
 	then 
