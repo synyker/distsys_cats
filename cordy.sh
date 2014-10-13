@@ -23,6 +23,8 @@ folder="/cs/fs/home/jonnaira/distsys/ex2/distsys_cats"
 #$(pwd)
 echo "$folder"
 
+sleep 3
+
 # First send the mouse to random ukko node
 countnodes=$(cat ukkonodes | wc -l)
 rnd=$(( ( RANDOM % $countnodes ) + 1 ))
