@@ -47,7 +47,7 @@ then
 
 	# If the connection is succesful, send the F message to listy.sh
 	#if [ "${res:${#res} - 10}" == "succeeded!" ]
-	if [ -n "$res"]
+	if [ -n "$res" ]
 	then
 		echo "F $curhost $name" | nc $listyip $port
 

@@ -9,9 +9,9 @@ trap cleanup SIGINT
 
 echo $$ > listypid
 
+# Empty the cmsg file
+echo "" > cmsg
+
 port=$(cat "nc_port_number")
 
-while true; do
-	msg=$(nc -l -q 0 $port)
-	echo $msg >> cmsg
-done
+nc -l -k $port >> cmsg
