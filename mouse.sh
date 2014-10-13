@@ -8,6 +8,7 @@ echo "$port"
 
 res=`nc -v -l -q 0 $port`
 
+sleep 10
 while true; do
 
 	if [ ${res:${#res} - 4} == "MEOW" ]
