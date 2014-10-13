@@ -19,7 +19,7 @@ found=0
 linecounter=1
 char="p"
 baseip=".hpc.cs.helsinki.fi"
-folder="distsys/ex2/distsys_cats/"
+folder="distsys/ex2/distsys_cats"
 testfolder=$(pwd)
 echo "$testfolder"
 echo "$folder"
