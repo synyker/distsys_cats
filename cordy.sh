@@ -32,8 +32,8 @@ ssh $mousenode$baseip "cd $folder && ./mouse.sh" &
 sleep 10
 
 # Start listy.sh on the correct node
-# listynode=$(cat "listy_location")
-# ssh $listynode$baseip "cd $folder && ./listy.sh" &
+listynode=$(cat "listy_location")
+ssh $listynode$baseip "cd $folder && ./listy.sh" &
 
 # Then send the cats to first two nodes in the list
 node=$(sed -n "$linecounter$char" < ukkonodes)
