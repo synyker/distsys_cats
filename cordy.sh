@@ -72,7 +72,7 @@ while true; do
 						while [ -e jazzypid ]; do
 							sleep 1
 						done
-						
+						echo "CORDY: SENDING JAZZY TO SEARCH $node"
 						ssh $node$baseip "cd $folder && ./chase_cat.sh S Jazzy" &
 						
 					elif [ "$cat" == "Jazzy" ]
@@ -81,7 +81,7 @@ while true; do
 						while [ -e cattypid ]; do
 							sleep 1
 						done
-		
+						echo "CORDY: SENDING CATTY TO SEARCH $node"
 						ssh $node$baseip "cd $folder && ./chase_cat.sh S Catty" &
 
 					fi
@@ -89,6 +89,7 @@ while true; do
 				# Both cats found the mouse, send attack command
 				elif [ $found -eq 2 ]
 				then
+					echo "CORDY: SENDING $cat TO ATTACK MOUSE ON $node"
 					ssh $node$baseip "cd $folder && ./chase_cat.sh A $cat" &
 				fi
 
@@ -102,6 +103,7 @@ while true; do
 				if [ $linecounter -le $count ]
 				then
 					node=$(sed -n "$linecounter$char" < ukkonodes)
+					echo "CORDY: $cat FOUND NO MOUSE ON $node"
 					ssh "$node$baseip cd $folder && ./chase_cat.sh S $cat" &
 				fi
 

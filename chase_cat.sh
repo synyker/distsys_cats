@@ -8,7 +8,7 @@ name=$2
 listyip=$(cat "listy_location")
 
 function message_listy {
-	echo "messaging listy"
+	echo "CHASE_CAT $name GOT THE MOUSE"
 	echo "G $curhost $name" | nc $listyip $port
 
 	if [ $name == "Catty" ]
@@ -49,10 +49,12 @@ then
 	#if [ "${res:${#res} - 10}" == "succeeded!" ]
 	if [ -n "$res" ]
 	then
+		echo "CHASE_CAT $2 MOUSE FOUND ON $curhost"
 		echo "F $curhost $name" | nc $listyip $port
 
 	# If not, send the N message to listy.sh
-	else		
+	else
+		echo "CHASE_CAT $2 NO MOUSE ON $curhost"		
 		echo "N $curhost $name" | nc $listyip $port
 	fi
 
@@ -62,6 +64,7 @@ then
 	# The attack takes 5 seconds
 	sleep 5
 	# The attacking cat's name is attached to the message for the mouse to distinguish between attackers
+	echo "CHASE_CAT $2 ATTACKING MOUSE ON $curhost"
 	res=$(echo "$name: MEOW" | nc localhost $port)
 	# The attacking cat will wait 10 seconds for the SIGINT signal, then exit if it's not received
 	sleep 10
