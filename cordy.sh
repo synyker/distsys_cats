@@ -54,6 +54,7 @@ while true; do
 		line=$(head -n 1 cmsg)
 		if [ -n "$line" ]
 		then
+			echo "CORDY MESSAGE: $line"
 			cat=${line:${#line} - 5}
 
 			# Found the mouse, send the other cat to the same node
@@ -132,9 +133,9 @@ while true; do
 
 			fi
 
-			sed -i 1d cmsg
+			#sed -i 1d cmsg
 		fi
 	fi
-
+	echo "CORDY WAITING..."
 	sleep 3
 done
