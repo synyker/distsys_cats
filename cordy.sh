@@ -26,7 +26,7 @@ folder=$(pwd)
 # First send the mouse to random ukko node
 countnodes=$(cat ukkonodes | wc -l)
 rnd=$(( ( RANDOM % $countnodes ) + 1 ))
-mousenode=ukko192 #$(sed -n "$rnd$char" < ukkonodes)
+mousenode=ukko190 #$(sed -n "$rnd$char" < ukkonodes)
 ssh $mousenode$baseip "cd $folder && ./mouse.sh" &
 
 sleep 10
