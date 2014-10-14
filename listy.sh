@@ -13,6 +13,6 @@ echo $$ > listypid
 rm cmsg
 touch cmsg
 
-port=23895 #$(cat "nc_port_number")
+port=$(cat "nc_port_number")
 
 nc -l -k $port >> cmsg
