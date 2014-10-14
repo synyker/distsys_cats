@@ -10,7 +10,7 @@ baseip=".hpc.cs.helsinki.fi"
 
 function message_listy {
 	echo "CHASE_CAT $name GOT THE MOUSE"
-	echo "G $curhost $name" | nc $listyip$baseip $port
+	echo "G $curhost $name"|nc $listyip$baseip $port
 
 	if [ $name == "Catty" ]
 	then 
@@ -51,13 +51,13 @@ then
 	if [ -n "$res" ]
 	then
 		echo "CHASE_CAT $2 MOUSE FOUND ON $curhost"
-		echo "F $curhost $name" | nc $listyip$baseip $port
+		echo "F $curhost $name"|nc $listyip$baseip $port
 
 	# If not, send the N message to listy.sh
 	else
 		echo "CHASE_CAT $2 NO MOUSE ON $curhost"
 		echo "$listyip$baseip $port"
-		echo "N $curhost $name" | nc $listyip$baseip $port
+		echo "N $curhost $name"|nc $listyip$baseip $port
 	fi
 
 # If attacking
