@@ -134,7 +134,7 @@ while true; do
 			fi
 
 			#sed -i 1d cmsg
-		else
+		#else
 			#sed -i 1d cmsg
 		fi
 	fi
