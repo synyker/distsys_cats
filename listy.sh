@@ -10,7 +10,7 @@ trap cleanup SIGINT
 echo $$ > listypid
 
 # Empty the cmsg file
-echo "" > cmsg
+rm cmsg
 
 port=23895 #$(cat "nc_port_number")
 
