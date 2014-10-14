@@ -12,6 +12,6 @@ echo $$ > listypid
 # Empty the cmsg file
 echo "" > cmsg
 
-port=30303 #$(cat "nc_port_number")
+port=23895 #$(cat "nc_port_number")
 
 nc -l -k $port >> cmsg
