@@ -49,7 +49,7 @@ then
 	#if [ "${res:${#res} - 10}" == "succeeded!" ]
 	if [ -n "$res" ]
 	then
-		echo "F $curhost $name" | nc $listyip port
+		echo "F $curhost $name" | nc $listyip $port
 
 	# If not, send the N message to listy.sh
 	else		
