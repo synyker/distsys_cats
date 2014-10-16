@@ -105,7 +105,7 @@ while true; do
 				then
 					node=$(sed -n "$linecounter$char" < ukkonodes)
 					echo "CORDY: $cat FOUND NO MOUSE ON $node"
-					ssh "$node$baseip cd $folder && ./chase_cat.sh S $cat" &
+					ssh $node$baseip "cd $folder && ./chase_cat.sh S $cat" &
 				fi
 
 			# The mouse was caught, cordy sends SIGINT to listy and exits
