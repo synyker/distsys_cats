@@ -28,7 +28,10 @@ listynode=$(cat "listy_location")
 ssh $listynode$baseip "cd $folder && ./listy.sh" &
 
 # Sleep to make sure listy actually is started before cats start messaging it
+echo "CORDY SLEEP 3"
 sleep 3
+echo "CORDY WOKE UP"
+
 
 # First send the mouse to random ukko node
 countnodes=$(cat ukkonodes | wc -l)
