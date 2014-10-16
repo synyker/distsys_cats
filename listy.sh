@@ -5,6 +5,8 @@ function cleanup {
 	exit
 }
 
+echo "LISTY STARTED"
+
 trap cleanup SIGINT
 
 echo $$ > listypid
