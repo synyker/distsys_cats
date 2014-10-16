@@ -23,15 +23,18 @@ char="p"
 baseip=".hpc.cs.helsinki.fi"
 folder=$(pwd)
 
+# Start listy.sh on the correct node
+listynode=$(cat "listy_location")
+ssh $listynode$baseip "cd $folder && ./listy.sh" &
+
+# Sleep to make sure listy actually is started before cats start messaging it
+sleep 3
+
 # First send the mouse to random ukko node
 countnodes=$(cat ukkonodes | wc -l)
 rnd=$(( ( RANDOM % $countnodes ) + 1 ))
 mousenode=ukko190 #$(sed -n "$rnd$char" < ukkonodes)
 ssh $mousenode$baseip "cd $folder && ./mouse.sh" &
-
-# Start listy.sh on the correct node
-listynode=$(cat "listy_location")
-ssh $listynode$baseip "cd $folder && ./listy.sh" &
 
 # Then send the cats to first two nodes in the list
 node=$(sed -n "$linecounter$char" < ukkonodes)
