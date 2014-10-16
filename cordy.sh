@@ -29,8 +29,6 @@ rnd=$(( ( RANDOM % $countnodes ) + 1 ))
 mousenode=ukko190 #$(sed -n "$rnd$char" < ukkonodes)
 ssh $mousenode$baseip "cd $folder && ./mouse.sh" &
 
-sleep 10
-
 # Start listy.sh on the correct node
 listynode=$(cat "listy_location")
 ssh $listynode$baseip "cd $folder && ./listy.sh" &
