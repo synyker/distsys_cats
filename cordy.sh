@@ -52,7 +52,7 @@ echo "ALL SCRIPTS STARTED, RUNNING"
 while true; do
 
 	count=$(cat cmsg | wc -l)
-
+	echo "$count"
 	if [ $count -gt 0 ]
 	then
 		line=$(head -n 1 cmsg)
