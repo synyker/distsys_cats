@@ -51,7 +51,7 @@ echo "ALL SCRIPTS STARTED, RUNNING"
 
 while true; do
 
-	count=$(cat cmsg | wc -l)
+	count=$(cat ukkonodes | wc -l)
 	echo "$count"
 	if [ $count -gt 0 ]
 	then
