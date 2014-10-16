@@ -75,11 +75,12 @@ while true; do
 				node=${line:2:7}
 				found=$[$found+1]
 				echo "node: $node, cat: $cat, found: $found"
+				# One cat found the mouse, send the other to the same node
 				searchmore=1
 				attack=2
-				# One cat found the mouse, send the other to the same node
 				if [ "$found" -eq "$searchmore" ]
 				then
+					echo "sending other cat to search"
 					if [ "$cat" == "Catty" ]
 					then
 						# Sleep until cat's old process dies
