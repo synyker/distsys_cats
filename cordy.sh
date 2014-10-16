@@ -69,7 +69,7 @@ while true; do
 				
 				node=${line:2:7}
 				found=$[$found+1]
-				echo "node: $node, cat: $cat"
+				echo "node: $node, cat: $cat, found: $found"
 				# One cat found the mouse, send the other to the same node
 				if [ $found -eq 1 ]
 				then
