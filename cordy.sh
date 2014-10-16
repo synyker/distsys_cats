@@ -39,6 +39,11 @@ rnd=$(( ( RANDOM % $countnodes ) + 1 ))
 mousenode=ukko182 #$(sed -n "$rnd$char" < ukkonodes)
 ssh $mousenode$baseip "cd $folder && ./mouse.sh" &
 
+# Sleep to make sure listy actually is started before cats start messaging it
+echo "CORDY SLEEP 3"
+sleep 3
+echo "CORDY WOKE UP"
+
 # Then send the cats to first two nodes in the list
 node=$(sed -n "$linecounter$char" < ukkonodes)
 ssh $node$baseip "cd $folder && ./chase_cat.sh S Catty" &
