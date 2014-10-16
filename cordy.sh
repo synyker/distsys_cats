@@ -75,8 +75,10 @@ while true; do
 				node=${line:2:7}
 				found=$[$found+1]
 				echo "node: $node, cat: $cat, found: $found"
+				searchmore=1
+				attack=2
 				# One cat found the mouse, send the other to the same node
-				if [ "$found" -eq "1" ]
+				if [ "$found" -eq "$searchmore" ]
 				then
 					if [ "$cat" == "Catty" ]
 					then
@@ -99,7 +101,7 @@ while true; do
 					fi
 
 				# Both cats found the mouse, send attack command
-				elif [ "$found" -eq "2" ]
+				elif [ "$found" -eq "$attack" ]
 				then
 					echo "CORDY: SENDING $cat TO ATTACK MOUSE ON $node"
 					ssh $node$baseip "cd $folder && ./chase_cat.sh A $cat" &
