@@ -36,7 +36,7 @@ echo "CORDY WOKE UP"
 # First send the mouse to random ukko node
 countnodes=$(cat ukkonodes | wc -l)
 rnd=$(( ( RANDOM % $countnodes ) + 1 ))
-mousenode=ukko190 #$(sed -n "$rnd$char" < ukkonodes)
+mousenode=ukko182 #$(sed -n "$rnd$char" < ukkonodes)
 ssh $mousenode$baseip "cd $folder && ./mouse.sh" &
 
 # Then send the cats to first two nodes in the list
@@ -69,7 +69,7 @@ while true; do
 				
 				node=${line:2:7}
 				found=$[$found+1]
-
+				echo "node: $node, cat: $cat"
 				# One cat found the mouse, send the other to the same node
 				if [ $found -eq 1 ]
 				then
