@@ -64,7 +64,7 @@ while true; do
 			catcommand=${line:0:1}
 			echo "$catcommand"
 			# Found the mouse, send the other cat to the same node
-			if [ "$catcommand" == "F" ]
+			if [ $catcommand == "F" ]
 			then
 				
 				node=${line:2:7}
@@ -101,7 +101,7 @@ while true; do
 				fi
 
 			# No mouse at the node, send the cat to the next node
-			elif [ "$catcommand" == "N" ]
+			elif [ $catcommand == "N" ]
 			then
 				
 				linecounter=$[$linecounter+1]
@@ -115,7 +115,7 @@ while true; do
 				fi
 
 			# The mouse was caught, cordy sends SIGINT to listy and exits
-			elif [ "$catcommand" == "G" ]
+			elif [ $catcommand == "G" ]
 			then
 				
 				echo "VICTORY"
