@@ -74,3 +74,11 @@ then
 else
 	exit
 fi
+
+if [ $name == "Catty" ]
+then 
+	rm cattypid
+elif [ $name == "Jazzy" ]
+then
+	rm jazzypid
+fi
