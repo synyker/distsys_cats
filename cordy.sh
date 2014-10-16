@@ -134,8 +134,8 @@ while true; do
 			fi
 
 			#sed -i 1d cmsg
-		#else
-			#sed -i 1d cmsg
+		else
+			sed -i 1d cmsg
 		fi
 	fi
 	echo "CORDY WAITING..."
