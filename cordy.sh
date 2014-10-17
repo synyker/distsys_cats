@@ -128,21 +128,33 @@ while true; do
 				
 				echo "VICTORY"
 				pid=$(cat "listypid")
-				kill -KILL $pid
-				rm listypid
+				if [ -n $pid ]
+				then
+					kill -KILL $pid
+					rm listypid
+				fi
 
 				pid=$(cat "cattypid")
-				kill -KILL $pid
-				rm cattypid
+				if [ -n $pid ]
+				then
+					kill -KILL $pid
+					rm cattypid
+				fi
 
 				pid=$(cat "jazzypid")
-				kill -KILL $pid
-				rm jazzypid
-
+				if [ -n $pid ]
+				then
+					kill -KILL $pid
+					rm jazzypid
+				fi
+				
 				pid=$(cat "mousepid")
-				kill -INT $pid
-				rm mousepid
-
+				if [ -n $pid ]
+				then
+					kill -INT $pid
+					rm mousepid
+				fi
+				
 				exit
 
 			fi
