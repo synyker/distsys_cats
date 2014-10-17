@@ -70,15 +70,17 @@ then
 	res=$(echo "$name: MEOW" | nc localhost $port)
 	# The attacking cat will wait 10 seconds for the SIGINT signal, then exit if it's not received
 	sleep 10
-	exit
+	clean_exit
 else
-	exit
+	clean_exit
 fi
 
-if [ $name == "Catty" ]
-then 
-	rm cattypid
-elif [ $name == "Jazzy" ]
-then
-	rm jazzypid
-fi
+function clean_exit() {
+	if [ $name == "Catty" ]
+	then 
+		rm cattypid
+	elif [ $name == "Jazzy" ]
+	then
+		rm jazzypid
+	fi	
+}
