@@ -66,7 +66,6 @@ then
 	# If not, send the N message to listy.sh
 	else
 		echo "CHASE_CAT $2 NO MOUSE ON $curhost"
-		echo "$listyip$baseip $port"
 		echo "N $curhost $name"|nc $listyip$baseip $port
 	fi
 
