@@ -21,4 +21,9 @@ port=$(cat "nc_port_number")
 while true; do
 	msg=$(nc -l $port)
 	echo "$msg" >> cmsg
+
+	if [ "${msg:0:1}" == "G" ]
+	then
+		exit
+	fi
 done
