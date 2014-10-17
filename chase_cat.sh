@@ -23,16 +23,6 @@ function message_listy {
 	exit
 }
 
-function clean_exit() {
-	if [ $name == "Catty" ]
-	then 
-		rm cattypid
-	elif [ $name == "Jazzy" ]
-	then
-		rm jazzypid
-	fi	
-}
-
 trap message_listy SIGINT
 
 # Check the parameters for the cat's name and save 
@@ -75,12 +65,14 @@ elif [ $1 == "A" ]
 then
 	# The attack takes 5 seconds
 	sleep 5
+	
 	# The attacking cat's name is attached to the message for the mouse to distinguish between attackers
 	echo "CHASE_CAT $2 ATTACKING MOUSE ON $curhost"
 	res=$(echo "$name: MEOW" | nc localhost $port)
+	
 	# The attacking cat will wait 10 seconds for the SIGINT signal, then exit if it's not received
 	sleep 10
-	clean_exit
+
 else
-	clean_exit
+	exit
 fi
