@@ -21,4 +21,6 @@ then
 		pid=$(cat "jazzypid")
 		kill -INT $pid
 	fi
+
+	exit
 fi
