@@ -61,8 +61,7 @@ while true; do
 			cat=${line:${#line} - 5}
 
 			catcommand=${line:0:1}
-			echo "$catcommand"
-			
+
 			# Found the mouse, send the other cat to the same node
 			if [ $catcommand == "F" ]
 			then
