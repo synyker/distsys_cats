@@ -52,7 +52,6 @@ echo "ALL SCRIPTS STARTED, RUNNING"
 while true; do
 
 	count=$(cat ukkonodes | wc -l)
-	echo "$count"
 	if [ $count -gt 0 ]
 	then
 		line=$(head -n 1 cmsg)
@@ -63,6 +62,7 @@ while true; do
 
 			catcommand=${line:0:1}
 			echo "$catcommand"
+			
 			# Found the mouse, send the other cat to the same node
 			if [ $catcommand == "F" ]
 			then
@@ -127,13 +127,14 @@ while true; do
 
 			fi
 
+			# Remove the line handled by this iteration from cmsg
 			sed -i 1d cmsg
 		else
+			# Remove a line from cmsg in case of faulty inputs, mostly empty lines
 			sed -i 1d cmsg
 		fi
 	fi
 
-	echo "CORDY WAITING..."
 	sleep 3
 
 done
