@@ -120,7 +120,7 @@ while true; do
 			elif [ $catcommand == "G" ]
 			then
 				
-				echo "VICTORY"
+				echo "VICTORY TO THE CATKIND"
 
 				exit
 
