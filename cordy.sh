@@ -28,21 +28,16 @@ listynode=$(cat "listy_location")
 ssh $listynode$baseip "cd $folder && ./listy.sh" &
 
 # Sleep to make sure listy actually is started before cats start messaging it
-echo "CORDY SLEEP 3"
-sleep 3
-echo "CORDY WOKE UP"
-
+sleep 4
 
 # First send the mouse to random ukko node
 countnodes=$(cat ukkonodes | wc -l)
 rnd=$(( ( RANDOM % $countnodes ) + 1 ))
-mousenode=ukko182 #$(sed -n "$rnd$char" < ukkonodes)
+mousenode=$(sed -n "$rnd$char" < ukkonodes)
 ssh $mousenode$baseip "cd $folder && ./mouse.sh" &
 
-# Sleep to make sure listy actually is started before cats start messaging it
-echo "CORDY SLEEP 3"
-sleep 3
-echo "CORDY WOKE UP"
+# Sleep to make sure mouse actually is started before cats start looking for it
+sleep 4
 
 # Then send the cats to first two nodes in the list
 node=$(sed -n "$linecounter$char" < ukkonodes)
@@ -137,6 +132,8 @@ while true; do
 			sed -i 1d cmsg
 		fi
 	fi
+
 	echo "CORDY WAITING..."
 	sleep 3
+
 done
