@@ -24,6 +24,7 @@ while true; do
 
 	if [ "${msg:0:1}" == "G" ]
 	then
+		echo "LISTY: SHUTTING DOWN"
 		exit
 	fi
 done
