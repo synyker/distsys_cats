@@ -23,6 +23,16 @@ function message_listy {
 	exit
 }
 
+function clean_exit() {
+	if [ $name == "Catty" ]
+	then 
+		rm cattypid
+	elif [ $name == "Jazzy" ]
+	then
+		rm jazzypid
+	fi	
+}
+
 trap message_listy SIGINT
 
 # Check the parameters for the cat's name and save 
@@ -74,13 +84,3 @@ then
 else
 	clean_exit
 fi
-
-function clean_exit() {
-	if [ $name == "Catty" ]
-	then 
-		rm cattypid
-	elif [ $name == "Jazzy" ]
-	then
-		rm jazzypid
-	fi	
-}
