@@ -19,6 +19,7 @@ while true; do
 	msg=$(nc -l $port)
 	echo "$msg" >> cmsg
 
+	# Listy shuts down when it reads the G message
 	if [ "${msg:0:1}" == "G" ]
 	then
 		echo "LISTY: SHUTTING DOWN"

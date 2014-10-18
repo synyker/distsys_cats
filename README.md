@@ -3,6 +3,8 @@
 ## Instructions
 To run the scripts, simply start cordy.sh. Cordy will then start up listy.sh on its' specified node, mouse.sh on a random node from the list of nodes and two instances of chase_cat.sh on the two first nodes in the ukkonodes file. 
 
+The scripts can be run on any linux server with a shared filesystem with the ukko nodes.
+
 ## Execution process
 Since the execution process of the chase_cat.sh, listy.sh and mouse.sh are really simple, I will not detail them here. The actual script files are simple, well commented and implemented according to the instructions.
 
