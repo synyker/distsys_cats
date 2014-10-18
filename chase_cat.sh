@@ -1,3 +1,4 @@
+# Catty and Jazzy are started by Cordy and perform the given action.
 # Catty and Jazzy communicate to Cordy through Listy cat.
 
 echo "CHASE_CAT $2 STARTED"
@@ -53,17 +54,15 @@ if [ $1 == "S" ]
 then
 
 	# Try to connect to the mouse.sh netcat on current ukko node
-	#res=$(echo "HI MOUSE" | nc -v localhost $port)
 	res=$(lsof -i :$port)
 
 	# If the connection is succesful, send the F message to listy.sh
-	#if [ "${res:${#res} - 10}" == "succeeded!" ]
 	if [ -n "$res" ]
 	then
 		echo "CHASE_CAT $2 MOUSE FOUND ON $curhost"
 		echo "F $curhost $name"|nc $listyip$baseip $port
 
-	# If not, send the N message to listy.sh
+	# If not the result is empty, send the N message to listy.sh
 	else
 		echo "CHASE_CAT $2 NO MOUSE ON $curhost"
 		echo "N $curhost $name"|nc $listyip$baseip $port
